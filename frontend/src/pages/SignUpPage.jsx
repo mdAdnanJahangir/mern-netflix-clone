@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useLocation } from "react-router-dom";
 
 
 const SignUpPage = () => {
 	
+const location = useLocation();
+const searchParams = new URLSearchParams(location.search);
+const emailValue = searchParams.get("email");
 
-	const [email, setEmail] = useState("");
+
+	const [email, setEmail] = useState(emailValue ||"");
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
