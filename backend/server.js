@@ -1,5 +1,6 @@
 import express from "express"
 import cookieParser from "cookie-parser"
+import path from "path"
 
 
 import authRoutes from "./routes/auth.route.js"
@@ -18,9 +19,10 @@ import { connectDB } from "./config/db.js"
 
 
 
-const app=express()
+const app=express();
 
-const PORT=ENV_VARS.PORT
+const PORT=ENV_VARS.PORT;
+const __dirname=path.resolve();
 
 
 app.use(express.json())
@@ -36,9 +38,20 @@ app.use("/api/v1/search",protectRoute, searchRoutes)
 
 
 
-app.get("/",(req,res)=>{
-    res.send("helo")
-})
+
+if(ENV_VARS.NODE_ENV === "production"){
+    app.use(express.static(path.join(__dirname,"/frontend/dist")));
+
+    app.get("*",(req,res)=>{
+        res.sendFile(path.resolve(__dirname,"frontend","dist","index.html"));
+    });
+
+
+
+
+}
+
+
 
 app.listen(PORT,()=>{
     console.log(`server started at http://localhost:${PORT}`);

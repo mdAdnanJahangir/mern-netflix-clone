@@ -1,8 +1,6 @@
-import {create} from "zustand"
+import { create } from "zustand";
 
-
-
-export const useContentStore=create((set)=>({
-   content:"movie",
-    setContentType:(type)=>set({content:type})
-}))
+export const useContentStore = create((set) => ({
+	contentType: "movie",
+	setContentType: (type) => set({ contentType: type }),
+}));
